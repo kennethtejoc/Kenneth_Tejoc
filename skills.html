@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Skills | Portfolio
+  </title>
+  <link href="images/favicon.png" rel="icon"/>
+  <link href="style.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <script>
+   let theme = localStorage.getItem("theme");
+
+   if (theme === "light") {
+    document.body.classList.add("light");
+   }
+  </script>
+  <header class="site-header">
+   <div class="container header-row">
+    <a class="logo" href="index.html">
+     Kenneth
+     <span>
+      .
+     </span>
+    </a>
+    <nav class="menu" id="menu">
+     <a href="index.html">
+      Home
+     </a>
+     <a href="about.html">
+      About
+     </a>
+     <a href="skills.html">
+      Skills
+     </a>
+     <a href="projects.html">
+      Projects
+     </a>
+     <a href="resume.html">
+      Resume
+     </a>
+     <a href="contact.html">
+      Contact
+     </a>
+    </nav>
+    <a class="btn header-btn" href="contact.html">
+     Hire Me
+    </a>
+    <button aria-expanded="false" aria-label="Open menu" class="hamburger" id="hamburger">
+     ☰
+    </button>
+   </div>
+  </header>
+  <main>
+  <section class="page-section container">
+    <div class="page-heading-card">
+      <h1>Tools &amp; Skills</h1>
+      <p class="page-intro">Technical skills developed through coursework, practice, and school projects. I’m still improving every skill—and yes, the missing semicolon still wins sometimes.</p>
+    </div>
+    <div class="grid grid-3 skill-list">
+      <button class="card skill-card" type="button">
+        <span>
+          <h3>HTML & CSS</h3>
+          <p>90%</p>
+        </span>
+        <span class="skill-description">I am highly comfortable building and styling basic responsive websites. I can structure pages, create layouts, and keep my code organized.</span>
+      </button>
+      <button class="card skill-card" type="button">
+        <span>
+          <h3>JavaScript</h3>
+          <p>40%</p>
+        </span>
+        <span class="skill-description">I can use JavaScript for interactive features such as navigation, validation, filtering, buttons, and simple page behavior.</span>
+      </button>
+      <button class="card skill-card" type="button">
+        <span>
+          <h3>PHP</h3>
+          <p>40%</p>
+        </span>
+        <span class="skill-description">I have a working knowledge of PHP for basic server-side programming and connecting web pages with data.</span>
+      </button>
+      <button class="card skill-card" type="button">
+        <span>
+          <h3>C++</h3>
+          <p>65%</p>
+        </span>
+        <span class="skill-description">I can write basic C++ programs and understand core programming concepts such as variables, conditions, loops, methods, and classes.</span>
+      </button>
+      <button class="card skill-card" type="button">
+        <span>
+          <h3>MySQL</h3>
+          <p>70%</p>
+        </span>
+        <span class="skill-description">I can create and work with basic databases, tables, queries, and relationships for school system projects.</span>
+      </button>
+      <button class="card skill-card" type="button">
+        <span>
+          <h3>UI/UX Design</h3>
+          <p>45%</p>
+        </span>
+        <span class="skill-description">I can design simple and user-friendly interfaces while paying attention to layout, spacing, readability, and ease of use.</span>
+      </button>
+      <button class="card skill-card" type="button">
+        <span>
+          <h3>Adobe Illustrator</h3>
+          <p>60%</p>
+        </span>
+        <span class="skill-description">I am comfortable creating digital designs, layouts, and visual elements using Adobe Illustrator.</span>
+      </button>
+      <button class="card skill-card" type="button">
+        <span>
+          <h3>Adobe Photoshop</h3>
+          <p>55%</p>
+        </span>
+        <span class="skill-description">I can use Photoshop for basic image editing, composition, and visual improvements.</span>
+      </button>
+      <button class="card skill-card" type="button">
+        <span>
+          <h3>Cisco Packet Tracer</h3>
+          <p>70%</p>
+        </span>
+        <span class="skill-description">I can create network layouts, configure basic devices, and practice connectivity using Cisco Packet Tracer.</span>
+      </button>
+    </div>
+  </section>
+</main>
+  <footer class="site-footer">
+   <p>
+    &copy; 2026 Kenneth Tejoc &middot; Personal Portfolio
+   </p>
+   <button aria-label="Switch dark or light mode" class="theme-button" id="themeButton">Dark | Light</button>
+  </footer>
+  <div class="theme-circle" id="themeCircle">
+  </div>
+  <script src="script.js">
+  </script>
+ </body>
+</html>

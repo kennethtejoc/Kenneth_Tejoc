@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Home | Portfolio
+  </title>
+  <link href="images/favicon.png" rel="icon"/>
+  <link href="style.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <script>
+   let theme = localStorage.getItem("theme");
+
+   if (theme === "light") {
+    document.body.classList.add("light");
+   }
+  </script>
+  <header class="site-header">
+   <div class="container header-row">
+    <a class="logo" href="index.html">
+     Kenneth
+     <span>
+      .
+     </span>
+    </a>
+    <nav class="menu" id="menu">
+     <a href="index.html">
+      Home
+     </a>
+     <a href="about.html">
+      About
+     </a>
+     <a href="skills.html">
+      Skills
+     </a>
+     <a href="projects.html">
+      Projects
+     </a>
+     <a href="resume.html">
+      Resume
+     </a>
+     <a href="contact.html">
+      Contact
+     </a>
+    </nav>
+    <a class="btn header-btn" href="contact.html">
+     Hire Me
+    </a>
+    <button aria-expanded="false" aria-label="Open menu" class="hamburger" id="hamburger">
+     ☰
+    </button>
+   </div>
+  </header>
+  <main>
+  <section class="hero">
+    <div class="hero-stage">
+      <div class="marquee">
+        <div class="marquee-track">
+          <span class="home-marquee">Kenneth Tejoc • BSIT Developer • </span>
+          <span class="home-marquee">Kenneth Tejoc • BSIT Developer • </span>
+          <span class="home-marquee">Kenneth Tejoc • BSIT Developer • </span>
+        </div>
+      </div>
+      <img class="hero-photo" id="homePhoto" src="images/Profile.jpeg" alt="Profile photo" />
+    </div>
+    <div class="container hero-info">
+      <div class="content-card">
+        <p class="hero-role" id="homeRole" data-text="3rd-Year BSIT Student &amp; Web Developer"></p>
+        <p><strong>Hello, I'm <span class="personal-name">Kenneth Tejoc</span>.</strong> I’m a 3rd-year BSIT student interested in web development, system design, and practical technology. I enjoy turning my ideas into simple, useful projects—and solving the occasional bug that insists on becoming part of the project.</p>
+      </div>
+      <div class="hero-buttons">
+        <a class="btn" id="homeProjectButton" href="projects.html">View My Projects</a>
+        <a class="btn btn-outline" id="homeContactButton" href="contact.html">Contact Me</a>
+      </div>
+    </div>
+  </section>
+</main>
+  <footer class="site-footer">
+   <p>
+    &copy; 2026 Kenneth Tejoc &middot; Personal Portfolio
+   </p>
+   <button aria-label="Switch dark or light mode" class="theme-button" id="themeButton">Dark | Light</button>
+  </footer>
+  <div class="theme-circle" id="themeCircle">
+  </div>
+  <script src="script.js">
+  </script>
+ </body>
+</html>

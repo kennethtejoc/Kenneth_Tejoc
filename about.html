@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About | Portfolio</title>
+    <link rel="icon" href="images/favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        let theme = localStorage.getItem("theme");
+        if (theme === "light") {
+            document.body.classList.add("light");
+        }
+    </script>
+
+    <header class="site-header">
+        <div class="container header-row">
+            <a class="logo" href="index.html">Kenneth<span>.</span></a>
+
+            <nav class="menu" id="menu">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="skills.html">Skills</a>
+                <a href="projects.html">Projects</a>
+                <a href="resume.html">Resume</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+
+            <a class="btn header-btn" href="contact.html">Hire Me</a>
+
+            <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="about-page container">
+            <div class="about-title">
+                <span class="section-label">ABOUT ME</span>
+                <h1>More Than<br>Just Code</h1>
+                <p>
+                    I’m Kenneth Tejoc, a 3rd-year BSIT student interested in
+                    web development, system design, networking, and digital design.
+                    I learn by building, testing, and fixing things—usually in that order.
+                </p>
+            </div>
+
+            <div class="about-cards">
+                <div class="card about-card">
+                    <h3>Background</h3>
+                    <p>
+                        I enjoy creating simple and useful digital projects. Through my school work, I have gained experience with programming, websites, databases, networking, and design.
+                    </p>
+                </div>
+
+                <div class="card about-card">
+                    <h3>Education</h3>
+                    <p>
+                        I am taking Bachelor of Science in Information Technology at NORSU. I continue to improve my technical and problem-solving skills through classes and hands-on projects.
+                    </p>
+                </div>
+
+                <div class="card about-card">
+                    <h3>Career Goals</h3>
+                    <p>
+                        My goal is to become a dependable IT professional. I want to build useful systems, work well with others, and keep learning as technology changes.
+                    </p>
+                </div>
+            </div>
+
+            <div class="interest-section">
+                <h2>Interests</h2>
+                <div class="interest-list">
+                    <span>Web Development</span>
+                    <span>UI/UX Design</span>
+                    <span>Networking</span>
+                    <span>Digital Creativity</span>
+                    <span>Technology &amp; Innovation</span>
+                    <span>Gaming</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Kenneth Tejoc · Personal Portfolio</p>
+        <button class="theme-button" id="themeButton" aria-label="Switch dark or light mode">Dark | Light</button>
+    </footer>
+
+    <div class="theme-circle" id="themeCircle"></div>
+    <script src="script.js"></script>
+</body>
+</html>

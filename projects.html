@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Projects | Portfolio</title>
+    <link rel="icon" href="images/favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        let theme = localStorage.getItem("theme");
+        if (theme === "light") {
+            document.body.classList.add("light");
+        }
+    </script>
+
+    <header class="site-header">
+        <div class="container header-row">
+            <a class="logo" href="index.html">Kenneth<span>.</span></a>
+
+            <nav class="menu" id="menu">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="skills.html">Skills</a>
+                <a href="projects.html">Projects</a>
+                <a href="resume.html">Resume</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+
+            <a class="btn header-btn" href="contact.html">Hire Me</a>
+
+            <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="projects-page container">
+            <div class="projects-title">
+                <span class="section-label">PROJECTS</span>
+                <h1>Selected Work</h1>
+                <p>
+                    School and personal projects showing my experience in
+                    development, design, networking, and problem-solving.
+                    Some started with a simple idea and ended with several tabs open.
+                </p>
+            </div>
+
+            <div class="project-tools project-tools-new">
+                <input class="search-box" id="projectSearch" type="search"
+                    placeholder="Search projects or technologies...">
+
+                <div class="filters">
+                    <button class="filter-btn" data-filter="All">All</button>
+                    <button class="filter-btn" data-filter="Web">Web</button>
+                    <button class="filter-btn" data-filter="Designs">Designs</button>
+                    <button class="filter-btn" data-filter="Networking">Networking</button>
+                </div>
+            </div>
+
+            <p class="result-count" id="resultCount"></p>
+
+            <div class="project-list">
+                <section class="card project" data-category="Web">
+                    <img src="images/kiosktogo-pos.jpg" alt="KioskToGo POS preview">
+                    <span class="status">Completed</span>
+                    <h3>KioskToGo POS</h3>
+                    <p>
+                        I created this point-of-sale project to practice faster and more organized
+                        ordering, sales tracking, and kiosk transactions.
+                    </p>
+                    <div class="tags"><span>HTML/CSS</span><span></span></div>
+                </section>
+
+                <section class="card project" data-category="Networking">
+                    <img src="images/cisco-packet-tracer.jpg" alt="Cisco Packet Tracer network layout preview">
+                    <span class="status">Completed</span>
+                    <h3>Cisco Packet Tracer Network Layout</h3>
+                    <p>
+                        I created this network layout in Cisco Packet Tracer to practice
+                        connecting devices and building a structured network setup.
+                    </p>
+                    <div class="tags"><span>Cisco Packet Tracer</span><span>Networking</span></div>
+                </section>
+
+                <section class="card project" data-category="Designs">
+                    <img src="images/animate-project.jpg" alt="Animate project preview">
+                    <span class="status">Completed</span>
+                    <h3>Animate Project</h3>
+                    <p>
+                        I created this animation project to practice movement, timing,
+                        and visual storytelling using Adobe Animate.
+                    </p>
+                    <div class="tags"><span>Adobe Animate</span><span>Animation</span></div>
+                    <a class="btn" href="https://www.facebook.com/share/v/1A2hfbajcm/" target="_blank" rel="noopener">Watch Video</a>
+                </section>
+
+                <section class="card project" data-category="Designs">
+                    <img src="images/illustrator-project.jpg" alt="Adobe Illustrator project preview">
+                    <span class="status">Completed</span>
+                    <h3>Adobe Illustrator Project</h3>
+                    <p>
+                        I created this digital design project in Adobe Illustrator to
+                        practice layout, illustration, and visual presentation.
+                    </p>
+                    <div class="tags"><span>Adobe Illustrator</span><span>Graphic Design</span></div>
+                </section>
+
+                <section class="card project" data-category="Web">
+                    <img src="images/portfolio-website.jpg" alt="Personal portfolio website preview">
+                    <span class="status">Ongoing</span>
+                    <h3>Personal Portfolio Website</h3>
+                    <p>
+                        I created this portfolio website to present my skills,
+                        projects, experience, and progress as a BSIT student.
+                    </p>
+                    <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+                    <a class="btn" href="index.html">View Portfolio</a>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Kenneth Tejoc · Personal Portfolio</p>
+        <button class="theme-button" id="themeButton" aria-label="Switch dark or light mode">Dark | Light</button>
+    </footer>
+
+    <div class="theme-circle" id="themeCircle"></div>
+    <script src="script.js"></script>
+</body>
+</html>

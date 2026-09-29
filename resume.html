@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Resume | Portfolio
+  </title>
+  <link href="images/favicon.png" rel="icon"/>
+  <link href="style.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <script>
+   let theme = localStorage.getItem("theme");
+
+   if (theme === "light") {
+    document.body.classList.add("light");
+   }
+  </script>
+  <header class="site-header">
+   <div class="container header-row">
+    <a class="logo" href="index.html">
+     Kenneth
+     <span>
+      .
+     </span>
+    </a>
+    <nav class="menu" id="menu">
+     <a href="index.html">
+      Home
+     </a>
+     <a href="about.html">
+      About
+     </a>
+     <a href="skills.html">
+      Skills
+     </a>
+     <a href="projects.html">
+      Projects
+     </a>
+     <a href="resume.html">
+      Resume
+     </a>
+     <a href="contact.html">
+      Contact
+     </a>
+    </nav>
+    <a class="btn header-btn" href="contact.html">
+     Hire Me
+    </a>
+    <button aria-expanded="false" aria-label="Open menu" class="hamburger" id="hamburger">
+     ☰
+    </button>
+   </div>
+  </header>
+  <main>
+  <section class="page-section container">
+    <div class="page-heading-card">
+      <h1>Resume</h1>
+      <p class="page-intro">I use this page to show my education, technical practice, and student project experience. I am still learning, still building, and still figuring out why some bugs only appear during presentations.</p>
+    </div>
+    <div class="resume-grid">
+      <div class="resume-card card"><p class="resume-label">Senior High School</p><h3>Bayawan Senior High School</h3><p>I graduated from Bayawan Senior High School in 2024. This is where I built my foundation for continuing my studies in Information Technology.</p></div>
+      <div class="resume-card card"><p class="resume-label">1st Year • 2024–2025</p><h3>NORSU</h3><p>I started my Bachelor of Science in Information Technology at Negros Oriental State University (NORSU) during the 2024–2025 school year.</p></div>
+      <div class="resume-card card"><p class="resume-label">2nd Year • 2025–2026</p><h3>NORSU</h3><p>I continued my BSIT studies at NORSU during 2025–2026, where I developed more experience in programming, systems, networking, databases, and digital projects.</p></div>
+      <div class="resume-card card"><p class="resume-label">3rd Year • 2026–2027</p><h3>NORSU • Currently</h3><p>I am currently a 3rd-year BSIT student at NORSU for the 2026–2027 school year, continuing to improve my technical and problem-solving skills.</p></div>
+      <div class="resume-card card"><p class="resume-label">Project Experience</p><h3>Academic IT Projects</h3><p>I have worked on websites, system concepts, network layouts, animation, and digital design projects. These projects help me improve my problem-solving, teamwork, documentation, and presentation skills.</p></div>
+      <div class="resume-card card"><p class="resume-label">Technical Training</p><h3>Continuous Skill Development</h3><p>I practice HTML, CSS, JavaScript, PHP, Java, MySQL, Cisco Packet Tracer, Adobe tools, and other technologies through academic activities and hands-on projects.</p></div>
+      <div class="resume-card card"><p class="resume-label">Why Hire Me</p><h3>I Bring a Willingness to Learn</h3><p>I am willing to learn, accept feedback, and work hard to improve. I may still be building my professional experience, but I bring curiosity, dedication, and a genuine interest in creating useful technology. I want to grow with a company while contributing wherever I can.</p></div>
+    </div>
+  </section>
+</main>
+  <footer class="site-footer">
+   <p>
+    &copy; 2026 Kenneth Tejoc &middot; Personal Portfolio
+   </p>
+   <button aria-label="Switch dark or light mode" class="theme-button" id="themeButton">Dark | Light</button>
+  </footer>
+  <div class="theme-circle" id="themeCircle">
+  </div>
+  <script src="script.js">
+  </script>
+ </body>
+</html>

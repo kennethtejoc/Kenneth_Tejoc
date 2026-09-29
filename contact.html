@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        let theme = localStorage.getItem("theme");
+        if (theme === "light") {
+            document.body.classList.add("light");
+        }
+    </script>
+
+    <header class="site-header">
+        <div class="container header-row">
+            <a class="logo" href="index.html">Kenneth<span>.</span></a>
+
+            <nav class="menu" id="menu">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="skills.html">Skills</a>
+                <a href="projects.html">Projects</a>
+                <a href="resume.html">Resume</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+
+            <a class="btn header-btn" href="contact.html">Hire Me</a>
+
+            <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="contact-page container">
+            <div class="contact-title">
+                <span class="section-label">CONTACT</span>
+                <h1>Let’s Connect</h1>
+                <p>
+                    I’m open to project ideas, questions, and collaboration.
+                    You can fill out the form below or find me on my social platforms.
+                    The form is static and does not send email.
+                </p>
+            </div>
+
+            <div class="contact-links">
+                <a class="contact-link facebook" href="https://www.facebook.com/share/1MhWG9ZYZe/" target="_blank" rel="noopener">
+                    <span class="contact-icon">f</span>
+                    <span>
+                        <small>FACEBOOK</small>
+                        Kenneth Tejoc
+                    </span>
+                </a>
+
+                <a class="contact-link github" href="https://github.com/kennethtejoc" target="_blank" rel="noopener">
+                    <span class="contact-icon">g</span>
+                    <span>
+                        <small>GITHUB</small>
+                        kennethtejoc
+                    </span>
+                </a>
+
+                <a class="contact-link email-link">
+                    <span class="contact-icon">@</span>
+                    <span>
+                        <small>EMAIL</small>
+                        heyneht@gmail.com
+                    </span>
+                </a>
+            </div>
+
+            <form class="card contact-form" id="contactForm" novalidate>
+                <h2>Send a Message</h2>
+
+                <label for="name">Name</label>
+                <input id="name" placeholder="Your name" type="text">
+                <span class="error" id="nameError"></span>
+
+                <label for="email">Email</label>
+                <input id="email" placeholder="you@example.com" type="email">
+                <span class="error" id="emailError"></span>
+
+                <label for="message">Message</label>
+                <textarea id="message" placeholder="Write your message here" rows="5"></textarea>
+                <span class="counter" id="msgCount">0 / 10 min</span>
+                <span class="error" id="messageError"></span>
+
+                <button class="btn" type="submit">Send Message</button>
+                <p class="form-success" id="formSuccess"></p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Kenneth Tejoc · Personal Portfolio</p>
+        <button class="theme-button" id="themeButton" aria-label="Switch dark or light mode">Dark | Light</button>
+    </footer>
+
+    <div class="theme-circle" id="themeCircle"></div>
+    <script src="script.js"></script>
+</body>
+</html>
