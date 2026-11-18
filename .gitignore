@@ -1,0 +1,2 @@
+# Keep database credentials out of GitHub.
+/config.php
