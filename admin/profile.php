@@ -37,7 +37,7 @@ try {
         exit;
     }
 
-    $profileQuery = $pdo->prepare('SELECT full_name, headline, marquee_text, intro FROM profile WHERE id = ? LIMIT 1');
+    $profileQuery = $pdo->prepare('SELECT full_name, headline, marquee_text, intro, about_heading, about_intro, background, education_text, career_goals, interests FROM profile WHERE id = ? LIMIT 1');
     $profileQuery->execute([1]);
     $profile = $profileQuery->fetch();
 } catch (PDOException $error) {
@@ -55,6 +55,12 @@ $fullName = $profile['full_name'] ?? '';
 $headline = $profile['headline'] ?? '';
 $marqueeText = $profile['marquee_text'] ?? '';
 $intro = $profile['intro'] ?? '';
+$aboutHeading = $profile['about_heading'] ?? '';
+$aboutIntro = $profile['about_intro'] ?? '';
+$background = $profile['background'] ?? '';
+$educationText = $profile['education_text'] ?? '';
+$careerGoals = $profile['career_goals'] ?? '';
+$interests = $profile['interests'] ?? '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $submittedToken = $_POST['csrf'] ?? '';
@@ -67,30 +73,86 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $postedHeadline = $_POST['headline'] ?? '';
         $postedMarqueeText = $_POST['marquee_text'] ?? '';
         $postedIntro = $_POST['intro'] ?? '';
+        $postedAboutHeading = $_POST['about_heading'] ?? '';
+        $postedAboutIntro = $_POST['about_intro'] ?? '';
+        $postedBackground = $_POST['background'] ?? '';
+        $postedEducationText = $_POST['education_text'] ?? '';
+        $postedCareerGoals = $_POST['career_goals'] ?? '';
+        $postedInterests = $_POST['interests'] ?? '';
 
-        if (!is_string($postedFullName) || !is_string($postedHeadline) || !is_string($postedMarqueeText) || !is_string($postedIntro)) {
+        if (
+            !is_string($postedFullName) ||
+            !is_string($postedHeadline) ||
+            !is_string($postedMarqueeText) ||
+            !is_string($postedIntro) ||
+            !is_string($postedAboutHeading) ||
+            !is_string($postedAboutIntro) ||
+            !is_string($postedBackground) ||
+            !is_string($postedEducationText) ||
+            !is_string($postedCareerGoals) ||
+            !is_string($postedInterests)
+        ) {
             $message = 'Enter text in each field and try again.';
         } else {
             $fullName = trim($postedFullName);
             $headline = trim($postedHeadline);
             $marqueeText = trim($postedMarqueeText);
             $intro = trim($postedIntro);
+            $aboutHeading = trim($postedAboutHeading);
+            $aboutIntro = trim($postedAboutIntro);
+            $background = trim($postedBackground);
+            $educationText = trim($postedEducationText);
+            $careerGoals = trim($postedCareerGoals);
+            $interests = trim($postedInterests);
+
+            $fullNameLength = preg_match_all('/./us', $fullName);
+            $headlineLength = preg_match_all('/./us', $headline);
+            $marqueeLength = preg_match_all('/./us', $marqueeText);
             $introLength = preg_match_all('/./us', $intro);
+            $aboutHeadingLength = preg_match_all('/./us', $aboutHeading);
+            $aboutIntroLength = preg_match_all('/./us', $aboutIntro);
+            $backgroundLength = preg_match_all('/./us', $background);
+            $educationLength = preg_match_all('/./us', $educationText);
+            $careerGoalsLength = preg_match_all('/./us', $careerGoals);
+            $interestsLength = preg_match_all('/./us', $interests);
 
             if ($fullName === '') {
                 $message = 'Please enter a name.';
-            } elseif ($introLength === false || $introLength > 5000) {
-                $message = 'The introduction must be 5,000 characters or less.';
+            } elseif (
+                $fullNameLength === false || $fullNameLength > 100 ||
+                $headlineLength === false || $headlineLength > 150 ||
+                $marqueeLength === false || $marqueeLength > 150 ||
+                $introLength === false || $introLength > 5000 ||
+                $aboutHeadingLength === false || $aboutHeadingLength > 80 ||
+                $aboutIntroLength === false || $aboutIntroLength > 5000 ||
+                $backgroundLength === false || $backgroundLength > 5000 ||
+                $educationLength === false || $educationLength > 5000 ||
+                $careerGoalsLength === false || $careerGoalsLength > 5000 ||
+                $interestsLength === false || $interestsLength > 500
+            ) {
+                $message = 'One or more fields are too long or contain invalid text.';
             } else {
                 try {
-                    $updateProfile = $pdo->prepare('UPDATE profile SET full_name = ?, headline = ?, marquee_text = ?, intro = ? WHERE id = ?');
-                    $updateProfile->execute([$fullName, $headline, $marqueeText, $intro, 1]);
+                    $updateProfile = $pdo->prepare('UPDATE profile SET full_name = ?, headline = ?, marquee_text = ?, intro = ?, about_heading = ?, about_intro = ?, background = ?, education_text = ?, career_goals = ?, interests = ? WHERE id = ?');
+                    $updateProfile->execute([
+                        $fullName,
+                        $headline,
+                        $marqueeText,
+                        $intro,
+                        $aboutHeading,
+                        $aboutIntro,
+                        $background,
+                        $educationText,
+                        $careerGoals,
+                        $interests,
+                        1,
+                    ]);
                     $_SESSION['profile_saved'] = true;
                     header('Location: profile.php');
                     exit;
                 } catch (PDOException $error) {
                     error_log($error->getMessage());
-                    $message = 'The profile could not be saved. Please check the field lengths and try again.';
+                    $message = 'The profile could not be saved. Please try again.';
                 }
             }
         }
@@ -117,8 +179,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <section class="contact-page container">
             <div class="contact-title">
                 <span class="section-label">ADMIN</span>
-                <h1>Edit Homepage Profile</h1>
-                <p>Update the name, headline, scrolling text, and introduction shown on the homepage.</p>
+                <h1>Edit Profile</h1>
+                <p>Update the content shown on the homepage and About page.</p>
             </div>
 
             <?php if ($message !== ''): ?>
@@ -126,6 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
 
             <form class="card contact-form" method="post" action="profile.php">
+                <h2>Homepage</h2>
                 <label for="full_name">Name</label>
                 <input id="full_name" name="full_name" type="text" required maxlength="100" value="<?= e($fullName) ?>">
 
@@ -136,7 +199,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input id="marquee_text" name="marquee_text" type="text" maxlength="150" value="<?= e($marqueeText) ?>">
 
                 <label for="intro">Introduction</label>
-                <textarea id="intro" name="intro" rows="6" maxlength="5000"><?= e($intro) ?></textarea>
+                <textarea id="intro" name="intro" rows="5" maxlength="5000"><?= e($intro) ?></textarea>
+
+                <h2>About page</h2>
+                <label for="about_heading">About heading</label>
+                <textarea id="about_heading" name="about_heading" rows="2" maxlength="80"><?= e($aboutHeading) ?></textarea>
+
+                <label for="about_intro">About introduction</label>
+                <textarea id="about_intro" name="about_intro" rows="5" maxlength="5000"><?= e($aboutIntro) ?></textarea>
+
+                <label for="background">Background</label>
+                <textarea id="background" name="background" rows="5" maxlength="5000"><?= e($background) ?></textarea>
+
+                <label for="education_text">Education</label>
+                <textarea id="education_text" name="education_text" rows="5" maxlength="5000"><?= e($educationText) ?></textarea>
+
+                <label for="career_goals">Career goals</label>
+                <textarea id="career_goals" name="career_goals" rows="5" maxlength="5000"><?= e($careerGoals) ?></textarea>
+
+                <label for="interests">Interests (comma-separated)</label>
+                <input id="interests" name="interests" type="text" maxlength="500" value="<?= e($interests) ?>">
 
                 <?= csrf() ?>
                 <button class="btn" type="submit">Save Profile</button>

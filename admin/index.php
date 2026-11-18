@@ -129,7 +129,7 @@ try {
             <div class="contact-title">
                 <span class="section-label">ADMIN</span>
                 <h1><?= $isLoggedIn ? 'Admin Area' : ($isFirstAdmin ? 'Create Admin' : 'Sign In') ?></h1>
-                <p><?= $isLoggedIn ? 'Manage your homepage profile and add other admin tools here.' : ($isFirstAdmin ? 'Create the first admin account to secure this area.' : 'Sign in to the portfolio admin area.') ?></p>
+                <p><?= $isLoggedIn ? 'Manage your homepage and About page content here.' : ($isFirstAdmin ? 'Create the first admin account to secure this area.' : 'Sign in to the portfolio admin area.') ?></p>
             </div>
 
             <?php if ($message !== ''): ?>
@@ -139,7 +139,7 @@ try {
             <?php if ($isLoggedIn): ?>
                 <div class="card contact-form">
                     <h2>Welcome, <?= e($_SESSION['admin_name'] ?? 'Administrator') ?>.</h2>
-                    <p><a class="btn btn-outline" href="profile.php">Edit Homepage Profile</a></p>
+                    <p><a class="btn btn-outline" href="profile.php">Edit Profile</a></p>
                     <form method="post" action="index.php">
                         <?= csrf() ?>
                         <button class="btn" type="submit" name="logout" value="1">Log Out</button>
