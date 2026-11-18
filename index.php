@@ -54,7 +54,7 @@ $footerText = !empty($settings['footer_text']) ? $settings['footer_text'] : 'Per
                 <a href="index.php">Home</a>
                 <a href="about.php">About</a>
                 <a href="skills.php">Skills</a>
-                <a href="projects.html">Projects</a>
+                <a href="projects.php">Projects</a>
                 <a href="resume.html">Resume</a>
                 <a href="contact.html">Contact</a>
             </nav>
@@ -81,7 +81,7 @@ $footerText = !empty($settings['footer_text']) ? $settings['footer_text'] : 'Per
                     <p><strong>Hello, I'm <span class="personal-name"><?= e($profile['full_name']) ?></span>.</strong> <?= e($profile['intro']) ?></p>
                 </div>
                 <div class="hero-buttons">
-                    <a class="btn" id="homeProjectButton" href="projects.html">View My Projects</a>
+                    <a class="btn" id="homeProjectButton" href="projects.php">View My Projects</a>
                     <a class="btn btn-outline" id="homeContactButton" href="contact.html">Contact Me</a>
                 </div>
             </div>
