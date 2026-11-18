@@ -1,4 +1,5 @@
 <?php
+// Opens the database connection using config.php.
 $configFile = __DIR__ . '/../config.php';
 
 if (!file_exists($configFile)) {

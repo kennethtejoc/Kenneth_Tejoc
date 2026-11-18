@@ -1,6 +1,6 @@
-/* BASIC PORTFOLIO JAVASCRIPT */
+/* Sets up the portfolio interactive features. */
 
-/* Mobile menu */
+/* Opens and closes the mobile menu and updates its state. */
 var menu = document.getElementById("menu");
 var hamburger = document.getElementById("hamburger");
 
@@ -25,7 +25,7 @@ if (menu && hamburger) {
     }
 }
 
-/* Active navigation */
+/* Marks the link for the current page. */
 var page = location.pathname.split("/").pop();
 
 if (page === "") {
@@ -40,7 +40,7 @@ for (var i = 0; i < navLinks.length; i++) {
     }
 }
 
-/* Simple typing effect */
+/* Displays the home-page role one character at a time. */
 var typingText = document.getElementById("homeRole");
 
 if (typingText) {
@@ -59,7 +59,7 @@ if (typingText) {
     }, 80);
 }
 
-/* Project search and filter */
+/* Filters projects by text and selected category. */
 var searchBox = document.getElementById("projectSearch");
 var filterButtons = document.querySelectorAll(".filter-btn");
 var projects = document.querySelectorAll(".project");
@@ -121,7 +121,7 @@ if (filterButtons.length > 0) {
     showProjects();
 }
 
-/* Dark and light mode */
+/* Changes and saves the page theme. */
 var themeButton = document.getElementById("themeButton");
 var themeCircle = document.getElementById("themeCircle");
 var changingTheme = false;
@@ -187,7 +187,7 @@ if (themeButton && themeCircle) {
     };
 }
 
-/* Skill descriptions */
+/* Opens and closes the skill descriptions. */
 var skillCards = document.querySelectorAll(".skill-card");
 
 for (var i = 0; i < skillCards.length; i++) {
@@ -199,7 +199,7 @@ for (var i = 0; i < skillCards.length; i++) {
     };
 }
 
-/* Static contact form */
+/* Checks contact form fields and counts message characters. */
 var form = document.getElementById("contactForm");
 
 if (form) {

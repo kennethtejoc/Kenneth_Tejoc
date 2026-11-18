@@ -1,6 +1,4 @@
-/* =========================
-   COLORS + RESET
-   ========================= */
+/* Defines site colors and resets default styles. */
 
 body {
     --bg:#0d0e12;
@@ -64,9 +62,7 @@ main {
 }
 
 
-/* =========================
-   HEADER
-   ========================= */
+/* Styles the site header and navigation. */
 
 .site-header {
     position:sticky;
@@ -127,9 +123,7 @@ main {
 }
 
 
-/* =========================
-   BUTTONS
-   ========================= */
+/* Styles buttons and their states. */
 
 .btn {
     display:inline-block;
@@ -174,9 +168,7 @@ main {
 .header-btn.btn:hover { box-shadow:none; }
 
 
-/* =========================
-   HOME
-   ========================= */
+/* Styles the home-page layout. */
 
 .hero-stage {
     position:relative;
@@ -266,9 +258,7 @@ main {
 .hero-buttons .btn { text-align:center; }
 
 
-/* =========================
-   GENERAL PAGES
-   ========================= */
+/* Styles shared page sections. */
 
 .page-section {
     display:grid;
@@ -335,9 +325,7 @@ main {
 .card a:hover { opacity:.6; }
 
 
-/* =========================
-   GRIDS + CARD HOVER
-   ========================= */
+/* Styles page grids and card hover effects. */
 
 .grid {
     display:grid;
@@ -367,9 +355,7 @@ main {
 }
 
 
-/* =========================
-   ABOUT / PAGE TITLES
-   ========================= */
+/* Styles page headings and the about layout. */
 
 .about-page,
 .projects-page,
@@ -411,9 +397,7 @@ main {
 }
 
 
-/* =========================
-   ABOUT
-   ========================= */
+/* Styles the about-page cards. */
 
 .about-cards {
     display:grid;
@@ -473,9 +457,7 @@ main {
 }
 
 
-/* =========================
-   SKILLS
-   ========================= */
+/* Styles skill cards and levels. */
 
 .grid-4 .card {
     display:flex;
@@ -497,7 +479,7 @@ main {
 
 
 
-/* Project action buttons */
+/* Styles project action buttons. */
 .project-list .project .btn,
 .project-list .project .btn:visited {
     margin:18px 24px 0;
@@ -511,7 +493,7 @@ main {
     color:#fff !important;
 }
 
-/* Clickable skill cards */
+/* Styles clickable skill cards. */
 .skill-card {
     width:100%;
     border:1px solid var(--line);
@@ -549,9 +531,7 @@ main {
     display:block;
 }
 
-/* =========================
-   PROJECTS
-   ========================= */
+/* Styles project search, filters, and cards. */
 
 .project-tools {
     display:flex;
@@ -674,9 +654,7 @@ main {
 }
 
 
-/* =========================
-   RESUME
-   ========================= */
+/* Styles the resume section. */
 
 .resume-grid {
     display:grid;
@@ -702,9 +680,7 @@ main {
 .resume-card p:last-child { margin:0; }
 
 
-/* =========================
-   CONTACT
-   ========================= */
+/* Styles the contact information. */
 
 .contact-links {
     display:grid;
@@ -766,9 +742,7 @@ main {
 }
 
 
-/* =========================
-   FORM
-   ========================= */
+/* Styles the contact form. */
 
 form.card { border-bottom:0; }
 
@@ -823,9 +797,7 @@ form .btn { margin-top:20px; }
 .counter.ok { color:#4caf7a; }
 
 
-/* =========================
-   FOOTER + THEME
-   ========================= */
+/* Styles the footer and theme control. */
 
 .site-footer {
     display:flex;
@@ -875,9 +847,7 @@ body.switching *:not(.theme-circle) {
 }
 
 
-/* =========================
-   ANIMATIONS
-   ========================= */
+/* Defines the page animations. */
 
 @keyframes slide-left {
     from { transform:translateX(0); }
@@ -901,9 +871,7 @@ body.switching *:not(.theme-circle) {
 }
 
 
-/* =========================
-   TABLET
-   ========================= */
+/* Adjusts the layout for tablet screens. */
 
 @media (max-width:1024px) {
     .menu { gap:16px; }
@@ -912,9 +880,7 @@ body.switching *:not(.theme-circle) {
 }
 
 
-/* =========================
-   MOBILE
-   ========================= */
+/* Adjusts the layout for phone screens. */
 
 @media (max-width:768px) {
 
@@ -1027,9 +993,7 @@ body.switching *:not(.theme-circle) {
 }
 
 
-/* =========================
-   REDUCED MOTION
-   ========================= */
+/* Disables animations for users who prefer reduced motion. */
 
 @media (prefers-reduced-motion:reduce) {
     .marquee-track,
