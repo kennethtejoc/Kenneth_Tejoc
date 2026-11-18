@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/functions.php';
 
-// Call this before sending HTML to the browser.
+// csrf() adds a hidden form field with a session token.
 function csrf()
 {
     if (session_status() !== PHP_SESSION_ACTIVE) {
