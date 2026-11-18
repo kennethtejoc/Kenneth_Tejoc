@@ -1001,3 +1001,14 @@ body.switching *:not(.theme-circle) {
         animation:none;
     }
 }
+
+
+/* Separates the Resume sections. */
+.resume-section + .resume-section {
+    margin-top:44px;
+}
+
+.resume-section > h2 {
+    margin-bottom:18px;
+    font-size:1.8rem;
+}
