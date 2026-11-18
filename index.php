@@ -52,7 +52,7 @@ $footerText = !empty($settings['footer_text']) ? $settings['footer_text'] : 'Per
             </a>
             <nav class="menu" id="menu" aria-label="Main navigation">
                 <a href="index.php">Home</a>
-                <a href="about.html">About</a>
+                <a href="about.php">About</a>
                 <a href="skills.html">Skills</a>
                 <a href="projects.html">Projects</a>
                 <a href="resume.html">Resume</a>
