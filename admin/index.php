@@ -140,6 +140,7 @@ try {
                 <div class="card contact-form">
                     <h2>Welcome, <?= e($_SESSION['admin_name'] ?? 'Administrator') ?>.</h2>
                     <p><a class="btn btn-outline" href="profile.php">Edit Profile</a></p>
+                    <p><a class="btn btn-outline" href="messages.php">View Messages</a></p>
                     <form method="post" action="index.php">
                         <?= csrf() ?>
                         <button class="btn" type="submit" name="logout" value="1">Log Out</button>

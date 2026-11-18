@@ -56,9 +56,9 @@ $footerText = !empty($settings['footer_text']) ? $settings['footer_text'] : 'Per
                 <a href="skills.php">Skills</a>
                 <a href="projects.php">Projects</a>
                 <a href="resume.php">Resume</a>
-                <a href="contact.html">Contact</a>
+                <a href="contact.php">Contact</a>
             </nav>
-            <a class="btn header-btn" href="contact.html">Hire Me</a>
+            <a class="btn header-btn" href="contact.php">Hire Me</a>
             <button aria-expanded="false" aria-label="Open menu" class="hamburger" id="hamburger">☰</button>
         </div>
     </header>
@@ -82,7 +82,7 @@ $footerText = !empty($settings['footer_text']) ? $settings['footer_text'] : 'Per
                 </div>
                 <div class="hero-buttons">
                     <a class="btn" id="homeProjectButton" href="projects.php">View My Projects</a>
-                    <a class="btn btn-outline" id="homeContactButton" href="contact.html">Contact Me</a>
+                    <a class="btn btn-outline" id="homeContactButton" href="contact.php">Contact Me</a>
                 </div>
             </div>
         </section>
