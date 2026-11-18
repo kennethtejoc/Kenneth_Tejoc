@@ -1,16 +1,14 @@
 <?php
 require_once __DIR__ . '/functions.php';
 
-/**
- * Start a session if needed and return a hidden field with a session CSRF token.
- */
+// Call this before sending HTML to the browser.
 function csrf()
 {
-    if (session_status() !== PHP_SESSION_ACTIVE && !session_start()) {
-        throw new RuntimeException('Unable to start a session for CSRF protection.');
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
     }
 
-    if (!isset($_SESSION['csrf']) || !is_string($_SESSION['csrf']) || !preg_match('/\A[a-f0-9]{64}\z/', $_SESSION['csrf'])) {
+    if (empty($_SESSION['csrf'])) {
         $_SESSION['csrf'] = bin2hex(random_bytes(32));
     }
 

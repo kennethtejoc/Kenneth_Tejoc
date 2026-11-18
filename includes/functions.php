@@ -1,8 +1,6 @@
 <?php
-/**
- * Escape a value before rendering it in HTML, including quotes and invalid UTF-8.
- */
-function e($value)
+// Escape text before showing it on an HTML page.
+function e($text)
 {
-    return htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    return htmlspecialchars((string) $text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
