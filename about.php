@@ -44,7 +44,7 @@ $interests = array_filter(array_map('trim', explode(',', (string) ($profile['int
             <nav class="menu" id="menu" aria-label="Main navigation">
                 <a href="index.php">Home</a>
                 <a href="about.php">About</a>
-                <a href="skills.html">Skills</a>
+                <a href="skills.php">Skills</a>
                 <a href="projects.html">Projects</a>
                 <a href="resume.html">Resume</a>
                 <a href="contact.html">Contact</a>
