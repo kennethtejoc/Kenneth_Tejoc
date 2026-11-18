@@ -191,8 +191,11 @@ if (themeButton && themeCircle) {
 var skillCards = document.querySelectorAll(".skill-card");
 
 for (var i = 0; i < skillCards.length; i++) {
-    skillCards[i].onclick = function () {
-        this.classList.toggle("open");
+    var card = skillCards[i];
+    card.setAttribute("aria-expanded", card.classList.contains("open") ? "true" : "false");
+    card.onclick = function () {
+        var expanded = this.classList.toggle("open");
+        this.setAttribute("aria-expanded", expanded ? "true" : "false");
     };
 }
 
