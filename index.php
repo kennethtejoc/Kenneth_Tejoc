@@ -35,8 +35,8 @@ $footerText = !empty($settings['footer_text']) ? $settings['footer_text'] : 'Per
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= e($siteTitle) ?> | Home</title>
-    <link href="images/favicon.png" rel="icon">
-    <link href="style.css" rel="stylesheet">
+    <link href="assets/images/favicon.png" rel="icon">
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
     <script>
@@ -73,7 +73,7 @@ $footerText = !empty($settings['footer_text']) ? $settings['footer_text'] : 'Per
                         <span class="home-marquee"><?= e($marqueeText) ?> • </span>
                     </div>
                 </div>
-                <img class="hero-photo" src="images/Profile.jpeg" alt="Photo of <?= e($profile['full_name']) ?>">
+                <img class="hero-photo" src="assets/images/Profile.jpeg" alt="Photo of <?= e($profile['full_name']) ?>">
             </div>
             <div class="container hero-info">
                 <div class="content-card">
@@ -93,6 +93,6 @@ $footerText = !empty($settings['footer_text']) ? $settings['footer_text'] : 'Per
         <button aria-label="Switch dark or light mode" class="theme-button" id="themeButton">Dark | Light</button>
     </footer>
     <div class="theme-circle" id="themeCircle"></div>
-    <script src="script.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
