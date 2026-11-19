@@ -219,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <header class="site-header">
         <div class="container header-row">
             <a class="logo" href="../index.php">Kenneth<span>.</span></a>
-            <a class="btn header-btn" href="index.php">Back to Admin</a>
+            <a class="btn header-btn" href="index.php">Back to Dashboard</a>
         </div>
     </header>
 

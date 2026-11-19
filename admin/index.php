@@ -158,18 +158,21 @@ try {
             <?php endif; ?>
 
             <?php if ($isLoggedIn): ?>
-                <div class="card contact-form">
-                    <h2>Welcome, <?= e($_SESSION['admin_name'] ?? 'Administrator') ?>.</h2>
-                    <div class="grid grid-2">
-                        <?php foreach ($stats as $label => $count): ?><div class="card"><strong><?= (int) $count ?></strong><p><?= e($label) ?></p></div><?php endforeach; ?>
+                <div class="dashboard-shell">
+                    <div class="dashboard-welcome card">
+                        <div><span class="section-label">CONTROL CENTER</span><h2>Welcome, <?= e($_SESSION['admin_name'] ?? 'Administrator') ?>.</h2><p>Manage your portfolio content, messages, profile, and website settings from one place.</p></div>
+                        <a class="btn btn-outline" href="../index.php">View Live Portfolio</a>
                     </div>
-                    <p><a class="btn btn-outline" href="manage.php?module=skills">Manage Content</a></p>
-                    <p><a class="btn btn-outline" href="settings.php">Website Settings</a></p>
-                    <p><a class="btn btn-outline" href="profile.php">Edit Profile</a></p>
-                    <p><a class="btn btn-outline" href="messages.php">View Messages</a></p>
+                    <div class="dashboard-stats">
+                        <?php foreach ($stats as $label => $count): ?><div class="dashboard-stat card"><strong><?= (int) $count ?></strong><span><?= e($label) ?></span></div><?php endforeach; ?>
+                    </div>
+                    <div class="dashboard-columns">
+                        <section class="card dashboard-panel"><h2>Manage portfolio</h2><p>Update the content shown on your public website.</p><div class="dashboard-links"><a href="profile.php"><strong>Edit Profile</strong><span>Personal information and contact details</span></a><a href="manage.php?module=skills"><strong>Skills</strong><span>Add, edit, or remove technical skills</span></a><a href="manage.php?module=projects"><strong>Projects</strong><span>Manage projects and upload images</span></a><a href="manage.php?module=education"><strong>Education</strong><span>Manage education records</span></a><a href="manage.php?module=experience"><strong>Experience</strong><span>Manage work and project experience</span></a><a href="manage.php?module=achievements"><strong>Achievements</strong><span>Manage awards and certificates</span></a></div></section>
+                        <section class="card dashboard-panel"><h2>Site tools</h2><p>Review visitor activity and site-wide configuration.</p><div class="dashboard-links"><a href="messages.php"><strong>Messages</strong><span>Read, archive, or delete contact messages</span></a><a href="settings.php"><strong>Website Settings</strong><span>Update title, logo, footer, and theme values</span></a></div><div class="dashboard-note"><strong>Security enabled</strong><span>CSRF protection, prepared statements, hashed passwords, sessions, and login-attempt throttling are active.</span></div></section>
+                    </div>
                     <form method="post" action="index.php">
                         <?= csrf() ?>
-                        <button class="btn" type="submit" name="logout" value="1">Log Out</button>
+                        <button class="btn dashboard-logout" type="submit" name="logout" value="1">Log Out</button>
                     </form>
                 </div>
             <?php elseif ($isFirstAdmin): ?>

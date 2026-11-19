@@ -95,7 +95,7 @@ try {
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title><?= e($module['title']) ?> | Portfolio Admin</title><link rel="stylesheet" href="../assets/css/style.css"></head>
 <body>
-<header class="site-header"><div class="container header-row"><a class="logo" href="../index.php">Kenneth<span>.</span></a><a class="btn header-btn" href="index.php">Dashboard</a></div></header>
+<header class="site-header"><div class="container header-row"><a class="logo" href="../index.php">Kenneth<span>.</span></a><a class="btn header-btn" href="index.php">Back to Dashboard</a></div></header>
 <main><section class="contact-page container">
 <div class="contact-title"><span class="section-label">ADMIN</span><h1><?= e($module['title']) ?></h1><p>Add, edit, and delete database-backed portfolio content.</p></div>
 <nav class="admin-nav" aria-label="Content management"><a href="manage.php?module=skills">Skills</a><a href="manage.php?module=projects">Projects</a><a href="manage.php?module=education">Education</a><a href="manage.php?module=experience">Experience</a><a href="manage.php?module=achievements">Achievements</a><a href="settings.php">Settings</a></nav>
