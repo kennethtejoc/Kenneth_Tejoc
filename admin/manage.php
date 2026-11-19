@@ -44,6 +44,7 @@ try {
                     if (!is_string($value)) { $value = ''; }
                     $value = trim($value);
                     if (in_array($field, ['level', 'sort_order'], true)) { $value = max(0, (int) $value); }
+                    if ($field === 'date_awarded' && $value === '') { $value = null; }
                     $values[$field] = $value;
                 }
                 if ($moduleKey === 'projects' && isset($_FILES['project_image'])) {
