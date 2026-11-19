@@ -160,16 +160,50 @@ try {
             <?php if ($isLoggedIn): ?>
                 <div class="dashboard-shell">
                     <div class="dashboard-welcome card">
-                        <div><span class="section-label">CONTROL CENTER</span><h2>Welcome, <?= e($_SESSION['admin_name'] ?? 'Administrator') ?>.</h2><p>Manage your portfolio content, messages, profile, and website settings from one place.</p></div>
+                        <div>
+                            <span class="section-label">CONTROL CENTER</span>
+                            <h2>Welcome, <?= e($_SESSION['admin_name'] ?? 'Administrator') ?>.</h2>
+                            <p>Choose a card below to update your portfolio.</p>
+                        </div>
                         <a class="btn btn-outline" href="../index.php">View Live Portfolio</a>
                     </div>
+
                     <div class="dashboard-stats">
-                        <?php foreach ($stats as $label => $count): ?><div class="dashboard-stat card"><strong><?= (int) $count ?></strong><span><?= e($label) ?></span></div><?php endforeach; ?>
+                        <?php foreach ($stats as $label => $count): ?>
+                            <div class="dashboard-stat card">
+                                <strong><?= (int) $count ?></strong>
+                                <span><?= e($label) ?></span>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
-                    <div class="dashboard-columns">
-                        <section class="card dashboard-panel"><h2>Manage portfolio</h2><p>Update the content shown on your public website.</p><div class="dashboard-links"><a href="profile.php"><strong>Edit Profile</strong><span>Personal information and contact details</span></a><a href="manage.php?module=skills"><strong>Skills</strong><span>Add, edit, or remove technical skills</span></a><a href="manage.php?module=projects"><strong>Projects</strong><span>Manage projects and upload images</span></a><a href="manage.php?module=education"><strong>Education</strong><span>Manage education records</span></a><a href="manage.php?module=experience"><strong>Experience</strong><span>Manage work and project experience</span></a><a href="manage.php?module=achievements"><strong>Achievements</strong><span>Manage awards and certificates</span></a></div></section>
-                        <section class="card dashboard-panel"><h2>Site tools</h2><p>Review visitor activity and site-wide configuration.</p><div class="dashboard-links"><a href="messages.php"><strong>Messages</strong><span>Read, archive, or delete contact messages</span></a><a href="settings.php"><strong>Website Settings</strong><span>Update title, logo, footer, and theme values</span></a></div><div class="dashboard-note"><strong>Security enabled</strong><span>CSRF protection, prepared statements, hashed passwords, sessions, and login-attempt throttling are active.</span></div></section>
+
+                    <section class="dashboard-section">
+                        <h2>Portfolio content</h2>
+                        <p>Manage the information visitors see on your website.</p>
+                        <div class="admin-card-grid">
+                            <a class="admin-card" href="profile.php"><span class="admin-card-number">01</span><strong>Profile</strong><span>Personal details and contact information</span></a>
+                            <a class="admin-card" href="manage.php?module=skills"><span class="admin-card-number">02</span><strong>Skills</strong><span>Technical skills and categories</span></a>
+                            <a class="admin-card" href="manage.php?module=projects"><span class="admin-card-number">03</span><strong>Projects</strong><span>Projects and project images</span></a>
+                            <a class="admin-card" href="manage.php?module=education"><span class="admin-card-number">04</span><strong>Education</strong><span>Schools and education records</span></a>
+                            <a class="admin-card" href="manage.php?module=experience"><span class="admin-card-number">05</span><strong>Experience</strong><span>Work and project experience</span></a>
+                            <a class="admin-card" href="manage.php?module=achievements"><span class="admin-card-number">06</span><strong>Achievements</strong><span>Awards and certificates</span></a>
+                        </div>
+                    </section>
+
+                    <section class="dashboard-section">
+                        <h2>Website tools</h2>
+                        <p>Review messages and control the website settings.</p>
+                        <div class="admin-card-grid admin-card-grid-small">
+                            <a class="admin-card" href="messages.php"><span class="admin-card-number">07</span><strong>Messages</strong><span>Read and manage visitor messages</span></a>
+                            <a class="admin-card" href="settings.php"><span class="admin-card-number">08</span><strong>Settings</strong><span>Website title, logo, footer, and theme</span></a>
+                        </div>
+                    </section>
+
+                    <div class="dashboard-note card">
+                        <strong>Security is active</strong>
+                        <span>Forms use CSRF protection, passwords are hashed, and login attempts are limited.</span>
                     </div>
+
                     <form method="post" action="index.php">
                         <?= csrf() ?>
                         <button class="btn dashboard-logout" type="submit" name="logout" value="1">Log Out</button>
