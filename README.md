@@ -26,7 +26,7 @@ A dynamic personal portfolio website built for the ITS 300-B final project. The 
 
 1. Create a MySQL database and user.
 2. Import `database.sql` into the database.
-3. Copy `config.sample.php` to `config.php` and fill in the database host, name, user, and password. Do not commit `config.php`.
+3. Copy `config.sample.php` to `config.php` on the server and set the database password privately. On this TinkerHost account, MySQL uses the hosting account's vPanel password. Never commit `config.php` or share the password.
 4. Upload the repository files to the existing midterm website address.
 5. Confirm that the site is served over HTTPS.
 6. Open `/admin/`. On a fresh database, create the first administrator with a password of at least 12 characters.

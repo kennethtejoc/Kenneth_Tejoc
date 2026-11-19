@@ -1,8 +1,9 @@
 <?php
-// Sample database settings used by the connection file.
+// Copy to config.php on the server. Never commit live database credentials.
+// On TinkerHost, the MySQL password is the hosting account's vPanel password.
 return [
-    'host' => 'localhost', // Database server address.
-    'name' => 'portfolio',
-    'user' => 'your_database_user',
-    'pass' => 'your_database_password',
+    'host' => 'sql103.thsite.top',
+    'name' => 'thsi_43473518_portfolio',
+    'user' => 'thsi_43473518',
+    'pass' => '', // Set this privately in config.php on the server.
 ];
