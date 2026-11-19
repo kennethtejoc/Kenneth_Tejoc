@@ -37,7 +37,7 @@ try {
         exit;
     }
 
-    $profileQuery = $pdo->prepare('SELECT full_name, headline, marquee_text, intro, profile_image, about_heading, about_intro, background, education_text, career_goals, interests FROM profile WHERE id = ? LIMIT 1');
+    $profileQuery = $pdo->prepare('SELECT full_name, headline, marquee_text, intro, profile_image, about_heading, about_intro, background, education_text, career_goals, interests, email, phone, location, facebook_url, github_url FROM profile WHERE id = ? LIMIT 1');
     $profileQuery->execute([1]);
     $profile = $profileQuery->fetch();
 } catch (PDOException $error) {
@@ -62,6 +62,11 @@ $educationText = $profile['education_text'] ?? '';
 $careerGoals = $profile['career_goals'] ?? '';
 $interests = $profile['interests'] ?? '';
 $profileImage = $profile['profile_image'] ?? '';
+$email = $profile['email'] ?? '';
+$phone = $profile['phone'] ?? '';
+$location = $profile['location'] ?? '';
+$facebookUrl = $profile['facebook_url'] ?? '';
+$githubUrl = $profile['github_url'] ?? '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $submittedToken = $_POST['csrf'] ?? '';
@@ -80,6 +85,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $postedEducationText = $_POST['education_text'] ?? '';
         $postedCareerGoals = $_POST['career_goals'] ?? '';
         $postedInterests = $_POST['interests'] ?? '';
+        $postedEmail = $_POST['email'] ?? '';
+        $postedPhone = $_POST['phone'] ?? '';
+        $postedLocation = $_POST['location'] ?? '';
+        $postedFacebookUrl = $_POST['facebook_url'] ?? '';
+        $postedGithubUrl = $_POST['github_url'] ?? '';
 
         if (
             !is_string($postedFullName) ||
@@ -91,7 +101,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             !is_string($postedBackground) ||
             !is_string($postedEducationText) ||
             !is_string($postedCareerGoals) ||
-            !is_string($postedInterests)
+            !is_string($postedInterests) ||
+            !is_string($postedEmail) ||
+            !is_string($postedPhone) ||
+            !is_string($postedLocation) ||
+            !is_string($postedFacebookUrl) ||
+            !is_string($postedGithubUrl)
         ) {
             $message = 'Enter text in each field and try again.';
         } else {
@@ -105,6 +120,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $educationText = trim($postedEducationText);
             $careerGoals = trim($postedCareerGoals);
             $interests = trim($postedInterests);
+            $email = trim($postedEmail);
+            $phone = trim($postedPhone);
+            $location = trim($postedLocation);
+            $facebookUrl = trim($postedFacebookUrl);
+            $githubUrl = trim($postedGithubUrl);
             $uploadError = '';
             try {
                 $uploadedImage = upload_image($_FILES['profile_image'] ?? [], __DIR__ . '/../assets/images/uploads');
@@ -125,6 +145,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $educationLength = preg_match_all('/./us', $educationText);
             $careerGoalsLength = preg_match_all('/./us', $careerGoals);
             $interestsLength = preg_match_all('/./us', $interests);
+            $emailLength = preg_match_all('/./us', $email);
+            $phoneLength = preg_match_all('/./us', $phone);
+            $locationLength = preg_match_all('/./us', $location);
+            $facebookLength = preg_match_all('/./us', $facebookUrl);
+            $githubLength = preg_match_all('/./us', $githubUrl);
 
             if ($uploadError !== '') {
                 $message = $uploadError;
@@ -140,12 +165,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $backgroundLength === false || $backgroundLength > 5000 ||
                 $educationLength === false || $educationLength > 5000 ||
                 $careerGoalsLength === false || $careerGoalsLength > 5000 ||
-                $interestsLength === false || $interestsLength > 500
+                $interestsLength === false || $interestsLength > 500 ||
+                $emailLength === false || $emailLength > 150 ||
+                $phoneLength === false || $phoneLength > 40 ||
+                $locationLength === false || $locationLength > 150 ||
+                $facebookLength === false || $facebookLength > 255 ||
+                $githubLength === false || $githubLength > 255
             ) {
                 $message = 'One or more fields are too long or contain invalid text.';
             } else {
                 try {
-                    $updateProfile = $pdo->prepare('UPDATE profile SET full_name = ?, headline = ?, marquee_text = ?, intro = ?, profile_image = ?, about_heading = ?, about_intro = ?, background = ?, education_text = ?, career_goals = ?, interests = ? WHERE id = ?');
+                    $updateProfile = $pdo->prepare('UPDATE profile SET full_name = ?, headline = ?, marquee_text = ?, intro = ?, profile_image = ?, about_heading = ?, about_intro = ?, background = ?, education_text = ?, career_goals = ?, interests = ?, email = ?, phone = ?, location = ?, facebook_url = ?, github_url = ? WHERE id = ?');
                     $updateProfile->execute([
                         $fullName,
                         $headline,
@@ -158,6 +188,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $educationText,
                         $careerGoals,
                         $interests,
+                        $email,
+                        $phone,
+                        $location,
+                        $facebookUrl,
+                        $githubUrl,
                         1,
                     ]);
                     $_SESSION['profile_saved'] = true;
@@ -235,6 +270,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <label for="interests">Interests (comma-separated)</label>
                 <input id="interests" name="interests" type="text" maxlength="500" value="<?= e($interests) ?>">
+
+                <h2>Contact details</h2>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" maxlength="150" value="<?= e($email) ?>">
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="text" maxlength="40" value="<?= e($phone) ?>">
+                <label for="location">Location</label>
+                <input id="location" name="location" type="text" maxlength="150" value="<?= e($location) ?>">
+                <label for="facebook_url">Facebook URL</label>
+                <input id="facebook_url" name="facebook_url" type="url" maxlength="255" value="<?= e($facebookUrl) ?>">
+                <label for="github_url">GitHub URL</label>
+                <input id="github_url" name="github_url" type="url" maxlength="255" value="<?= e($githubUrl) ?>">
 
                 <?= csrf() ?>
                 <button class="btn" type="submit">Save Profile</button>
