@@ -22,6 +22,12 @@ try {
     $adminCount = (int) $pdo->query('SELECT COUNT(*) FROM admins')->fetchColumn();
     $isFirstAdmin = $adminCount === 0;
     $isLoggedIn = !empty($_SESSION['admin_id']);
+    $stats = [];
+    if ($isLoggedIn) {
+        foreach (['projects' => 'Projects', 'skills' => 'Skills', 'messages' => 'Messages', 'experience' => 'Experiences'] as $table => $label) {
+            $stats[$label] = (int) $pdo->query("SELECT COUNT(*) FROM {$table}")->fetchColumn();
+        }
+    }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $submittedToken = $_POST['csrf'] ?? '';
@@ -139,6 +145,11 @@ try {
             <?php if ($isLoggedIn): ?>
                 <div class="card contact-form">
                     <h2>Welcome, <?= e($_SESSION['admin_name'] ?? 'Administrator') ?>.</h2>
+                    <div class="grid grid-2">
+                        <?php foreach ($stats as $label => $count): ?><div class="card"><strong><?= (int) $count ?></strong><p><?= e($label) ?></p></div><?php endforeach; ?>
+                    </div>
+                    <p><a class="btn btn-outline" href="manage.php?module=skills">Manage Content</a></p>
+                    <p><a class="btn btn-outline" href="settings.php">Website Settings</a></p>
                     <p><a class="btn btn-outline" href="profile.php">Edit Profile</a></p>
                     <p><a class="btn btn-outline" href="messages.php">View Messages</a></p>
                     <form method="post" action="index.php">

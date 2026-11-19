@@ -322,6 +322,25 @@ main {
     text-underline-offset:3px;
 }
 
+.admin-nav {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:0 0 24px;
+}
+
+.admin-nav a {
+    padding:8px 14px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    color:var(--muted);
+}
+
+.admin-nav a:hover {
+    color:var(--text);
+    border-color:var(--text);
+}
+
 .card a:hover { opacity:.6; }
 
 
