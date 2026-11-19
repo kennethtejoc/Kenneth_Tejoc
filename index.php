@@ -3,7 +3,7 @@ require_once __DIR__ . '/includes/functions.php';
 require __DIR__ . '/includes/db.php';
 
 try {
-    $profileQuery = $pdo->prepare('SELECT full_name, headline, marquee_text, intro FROM profile WHERE id = ? LIMIT 1');
+    $profileQuery = $pdo->prepare('SELECT full_name, headline, marquee_text, intro, profile_image FROM profile WHERE id = ? LIMIT 1');
     $profileQuery->execute([1]);
     $profile = $profileQuery->fetch();
 
@@ -28,6 +28,7 @@ $siteTitle = !empty($settings['site_title']) ? $settings['site_title'] : 'Portfo
 $logoText = !empty($settings['logo_text']) ? $settings['logo_text'] : $profile['full_name'];
 $marqueeText = !empty($profile['marquee_text']) ? $profile['marquee_text'] : $profile['full_name'];
 $footerText = !empty($settings['footer_text']) ? $settings['footer_text'] : 'Personal Portfolio';
+$profileImage = portfolio_image_url((string) ($profile['profile_image'] ?? ''), 'assets/images/Profile.jpeg');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +74,7 @@ $footerText = !empty($settings['footer_text']) ? $settings['footer_text'] : 'Per
                         <span class="home-marquee"><?= e($marqueeText) ?> • </span>
                     </div>
                 </div>
-                <img class="hero-photo" src="assets/images/Profile.jpeg" alt="Photo of <?= e($profile['full_name']) ?>">
+                <img class="hero-photo" src="<?= e($profileImage) ?>" alt="Photo of <?= e($profile['full_name']) ?>">
             </div>
             <div class="container hero-info">
                 <div class="content-card">

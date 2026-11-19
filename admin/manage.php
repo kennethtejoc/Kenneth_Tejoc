@@ -46,7 +46,17 @@ try {
                     if (in_array($field, ['level', 'sort_order'], true)) { $value = max(0, (int) $value); }
                     $values[$field] = $value;
                 }
-                if (($values['title'] ?? $values['name'] ?? '') === '') {
+                if ($moduleKey === 'projects' && isset($_FILES['project_image'])) {
+                    try {
+                        $uploadedImage = upload_image($_FILES['project_image'], __DIR__ . '/../assets/images/uploads');
+                        if ($uploadedImage !== '') { $values['image'] = $uploadedImage; }
+                    } catch (RuntimeException $uploadException) {
+                        $message = $uploadException->getMessage();
+                    }
+                }
+                if ($message !== '') {
+                    $success = false;
+                } elseif (($values['title'] ?? $values['name'] ?? '') === '') {
                     $message = 'Please complete the required title or name field.';
                 } else {
                     if ($id) {
@@ -89,8 +99,9 @@ try {
 <div class="contact-title"><span class="section-label">ADMIN</span><h1><?= e($module['title']) ?></h1><p>Add, edit, and delete database-backed portfolio content.</p></div>
 <nav class="admin-nav" aria-label="Content management"><a href="manage.php?module=skills">Skills</a><a href="manage.php?module=projects">Projects</a><a href="manage.php?module=education">Education</a><a href="manage.php?module=experience">Experience</a><a href="manage.php?module=achievements">Achievements</a><a href="settings.php">Settings</a></nav>
 <?php if ($message !== ''): ?><p class="<?= $success ? 'form-success' : 'error' ?>" role="status"><?= e($message) ?></p><?php endif; ?>
-<form class="card contact-form" method="post" action="manage.php?module=<?= e($moduleKey) ?><?= $editId ? '&id=' . (int) $editId : '' ?>"><h2><?= $editId ? 'Edit item' : 'Add item' ?></h2>
+<form class="card contact-form" method="post" enctype="multipart/form-data" action="manage.php?module=<?= e($moduleKey) ?><?= $editId ? '&id=' . (int) $editId : '' ?>"><h2><?= $editId ? 'Edit item' : 'Add item' ?></h2>
 <?php foreach ($module['fields'] as $field => $label): ?><label for="<?= e($field) ?>"><?= e($label) ?></label><?php if (in_array($field, ['description'], true)): ?><textarea id="<?= e($field) ?>" name="<?= e($field) ?>" rows="4"><?= e($record[$field] ?? '') ?></textarea><?php else: ?><input id="<?= e($field) ?>" name="<?= e($field) ?>" type="<?= $field === 'date_awarded' ? 'date' : 'text' ?>" value="<?= e($record[$field] ?? '') ?>" maxlength="255"><?php endif; ?><?php endforeach; ?>
+<?php if ($moduleKey === 'projects'): ?><label for="project_image">Upload project image (optional, max 5 MB)</label><input id="project_image" name="project_image" type="file" accept="image/jpeg,image/png,image/gif,image/webp"><?php endif; ?>
 <?= csrf() ?><input type="hidden" name="action" value="save"><?php if ($editId): ?><input type="hidden" name="id" value="<?= (int) $editId ?>"><?php endif; ?><button class="btn" type="submit"><?= $editId ? 'Update item' : 'Add item' ?></button><?php if ($editId): ?><a class="btn btn-outline" href="manage.php?module=<?= e($moduleKey) ?>">Cancel</a><?php endif; ?></form>
 <div class="resume-grid"><h2>Current <?= e($module['title']) ?></h2><?php foreach ($items as $item): ?><article class="resume-card card"><h3><?= e($item['title'] ?? $item['name'] ?? '') ?></h3><p><?= e($item['description'] ?? $item['category'] ?? $item['label'] ?? '') ?></p><p><a class="btn btn-outline" href="manage.php?module=<?= e($moduleKey) ?>&id=<?= (int) $item['id'] ?>">Edit</a></p><form method="post" action="manage.php?module=<?= e($moduleKey) ?>" onsubmit="return confirm('Delete this item?');"><input type="hidden" name="action" value="delete"><input type="hidden" name="id" value="<?= (int) $item['id'] ?>"><?= csrf() ?><button class="btn" type="submit">Delete</button></form></article><?php endforeach; ?></div>
 </section></main><footer class="site-footer"><p>&copy; <?= e(date('Y')) ?> Kenneth Tejoc · Portfolio Admin</p></footer></body></html>

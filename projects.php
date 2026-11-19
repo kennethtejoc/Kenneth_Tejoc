@@ -91,8 +91,8 @@ foreach ($projects as $project) {
                     <?php foreach ($projects as $project): ?>
                         <?php
                         $category = (string) ($project['category'] ?? '');
-                        $image = basename(str_replace('\\', '/', (string) ($project['image'] ?? '')));
-                        $imagePath = __DIR__ . '/assets/images/' . $image;
+                        $image = trim(str_replace('\\', '/', (string) ($project['image'] ?? '')));
+                        $imageUrl = portfolio_image_url($image);
                         $tags = array_filter(array_map('trim', explode(',', (string) ($project['tags'] ?? ''))));
                         $linkUrl = trim((string) ($project['link_url'] ?? ''));
                         $linkLabel = trim((string) ($project['link_label'] ?? ''));
@@ -103,8 +103,8 @@ foreach ($projects as $project) {
                             && in_array(strtolower($linkParts['scheme'] ?? ''), ['http', 'https'], true);
                         ?>
                         <section class="card project" data-category="<?= e($category) ?>">
-                            <?php if ($image !== '' && is_file($imagePath)): ?>
-                                <img src="assets/images/<?= e($image) ?>" alt="<?= e($project['title']) ?> preview">
+                            <?php if ($imageUrl !== ''): ?>
+                                <img src="<?= e($imageUrl) ?>" alt="<?= e($project['title']) ?> preview">
                             <?php endif; ?>
                             <span class="status"><?= e($project['status']) ?></span>
                             <h3><?= e($project['title']) ?></h3>

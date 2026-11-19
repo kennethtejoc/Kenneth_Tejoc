@@ -37,7 +37,7 @@ try {
         exit;
     }
 
-    $profileQuery = $pdo->prepare('SELECT full_name, headline, marquee_text, intro, about_heading, about_intro, background, education_text, career_goals, interests FROM profile WHERE id = ? LIMIT 1');
+    $profileQuery = $pdo->prepare('SELECT full_name, headline, marquee_text, intro, profile_image, about_heading, about_intro, background, education_text, career_goals, interests FROM profile WHERE id = ? LIMIT 1');
     $profileQuery->execute([1]);
     $profile = $profileQuery->fetch();
 } catch (PDOException $error) {
@@ -61,6 +61,7 @@ $background = $profile['background'] ?? '';
 $educationText = $profile['education_text'] ?? '';
 $careerGoals = $profile['career_goals'] ?? '';
 $interests = $profile['interests'] ?? '';
+$profileImage = $profile['profile_image'] ?? '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $submittedToken = $_POST['csrf'] ?? '';
@@ -104,6 +105,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $educationText = trim($postedEducationText);
             $careerGoals = trim($postedCareerGoals);
             $interests = trim($postedInterests);
+            $uploadError = '';
+            try {
+                $uploadedImage = upload_image($_FILES['profile_image'] ?? [], __DIR__ . '/../assets/images/uploads');
+                if ($uploadedImage !== '') {
+                    $profileImage = $uploadedImage;
+                }
+            } catch (RuntimeException $uploadException) {
+                $uploadError = $uploadException->getMessage();
+            }
 
             $fullNameLength = preg_match_all('/./us', $fullName);
             $headlineLength = preg_match_all('/./us', $headline);
@@ -116,7 +126,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $careerGoalsLength = preg_match_all('/./us', $careerGoals);
             $interestsLength = preg_match_all('/./us', $interests);
 
-            if ($fullName === '') {
+            if ($uploadError !== '') {
+                $message = $uploadError;
+            } elseif ($fullName === '') {
                 $message = 'Please enter a name.';
             } elseif (
                 $fullNameLength === false || $fullNameLength > 100 ||
@@ -133,12 +145,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $message = 'One or more fields are too long or contain invalid text.';
             } else {
                 try {
-                    $updateProfile = $pdo->prepare('UPDATE profile SET full_name = ?, headline = ?, marquee_text = ?, intro = ?, about_heading = ?, about_intro = ?, background = ?, education_text = ?, career_goals = ?, interests = ? WHERE id = ?');
+                    $updateProfile = $pdo->prepare('UPDATE profile SET full_name = ?, headline = ?, marquee_text = ?, intro = ?, profile_image = ?, about_heading = ?, about_intro = ?, background = ?, education_text = ?, career_goals = ?, interests = ? WHERE id = ?');
                     $updateProfile->execute([
                         $fullName,
                         $headline,
                         $marqueeText,
                         $intro,
+                        $profileImage,
                         $aboutHeading,
                         $aboutIntro,
                         $background,
@@ -187,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p class="form-success" role="status"><?= e($message) ?></p>
             <?php endif; ?>
 
-            <form class="card contact-form" method="post" action="profile.php">
+            <form class="card contact-form" method="post" action="profile.php" enctype="multipart/form-data">
                 <h2>Homepage</h2>
                 <label for="full_name">Name</label>
                 <input id="full_name" name="full_name" type="text" required maxlength="100" value="<?= e($fullName) ?>">
@@ -200,6 +213,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <label for="intro">Introduction</label>
                 <textarea id="intro" name="intro" rows="5" maxlength="5000"><?= e($intro) ?></textarea>
+
+                <label for="profile_image">Profile image (JPEG, PNG, GIF, or WebP; max 5 MB)</label>
+                <input id="profile_image" name="profile_image" type="file" accept="image/jpeg,image/png,image/gif,image/webp">
 
                 <h2>About page</h2>
                 <label for="about_heading">About heading</label>
