@@ -79,7 +79,7 @@ try {
     <title>Messages | Portfolio Admin</title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body>
+<body class="admin-page">
     <header class="site-header">
         <div class="container header-row">
             <a class="logo" href="../index.php">Kenneth<span>.</span></a>
@@ -114,18 +114,20 @@ try {
                                 <p><?= e($item['email']) ?></p>
                             <?php endif; ?>
                             <p><?= nl2br(e($item['message'])) ?></p>
-                            <form method="post" action="messages.php" style="display:inline-block">
-                                <input type="hidden" name="message_id" value="<?= (int) $item['id'] ?>">
-                                <input type="hidden" name="action" value="<?= (int) $item['is_read'] === 1 ? 'unread' : 'read' ?>">
-                                <?= csrf() ?>
-                                <button class="btn btn-outline" type="submit"><?= (int) $item['is_read'] === 1 ? 'Mark as Unread' : 'Mark as Read' ?></button>
-                            </form>
-                            <form method="post" action="messages.php" style="display:inline-block" onsubmit="return confirm('Delete this message?');">
-                                <input type="hidden" name="message_id" value="<?= (int) $item['id'] ?>">
-                                <input type="hidden" name="action" value="delete">
-                                <?= csrf() ?>
-                                <button class="btn" type="submit">Delete</button>
-                            </form>
+                            <div class="admin-card-actions">
+                                <form method="post" action="messages.php">
+                                    <input type="hidden" name="message_id" value="<?= (int) $item['id'] ?>">
+                                    <input type="hidden" name="action" value="<?= (int) $item['is_read'] === 1 ? 'unread' : 'read' ?>">
+                                    <?= csrf() ?>
+                                    <button class="btn btn-outline" type="submit"><?= (int) $item['is_read'] === 1 ? 'Mark as Unread' : 'Mark as Read' ?></button>
+                                </form>
+                                <form method="post" action="messages.php" onsubmit="return confirm('Delete this message?');">
+                                    <input type="hidden" name="message_id" value="<?= (int) $item['id'] ?>">
+                                    <input type="hidden" name="action" value="delete">
+                                    <?= csrf() ?>
+                                    <button class="btn" type="submit">Delete</button>
+                                </form>
+                            </div>
                         </article>
                     <?php endforeach; ?>
                 </div>

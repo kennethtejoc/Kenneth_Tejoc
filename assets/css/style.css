@@ -341,27 +341,37 @@ main {
     border-color:var(--text);
 }
 
-.dashboard-shell { display:flex; flex-direction:column; gap:24px; }
+.dashboard-shell { display:flex; flex-direction:column; gap:28px; }
 .dashboard-welcome { display:flex; align-items:center; justify-content:space-between; gap:24px; }
 .dashboard-welcome h2 { margin:18px 0 8px; font-size:clamp(1.6rem,4vw,2.4rem); }
 .dashboard-welcome p { color:var(--muted); }
-.dashboard-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
-.dashboard-stat { display:flex; flex-direction:column; gap:4px; padding:22px; }
+.dashboard-stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+.dashboard-stat { display:flex; flex-direction:column; gap:8px; padding:22px; }
 .dashboard-stat strong { font-size:2.4rem; line-height:1; }
 .dashboard-stat span { color:var(--muted); text-transform:uppercase; font-size:.75rem; letter-spacing:.08em; }
 .dashboard-section h2 { margin-bottom:6px; }
 .dashboard-section > p { margin-bottom:16px; color:var(--muted); }
-.admin-card-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-.admin-card { display:flex; flex-direction:column; gap:8px; min-height:120px; padding:20px; border:1px solid var(--line); border-radius:8px; background:var(--card); text-decoration:none; transition:transform .2s,border-color .2s; }
-.admin-card:hover { border-color:var(--text); transform:translateY(-3px); opacity:1; }
-.admin-card strong { color:var(--text); font-size:1.2rem; }
-.admin-card span:last-child { color:var(--muted); font-size:.9rem; }
-.admin-card-number { color:var(--muted); font-size:.75rem; letter-spacing:.08em; }
-.admin-card-grid-small { grid-template-columns:repeat(2,1fr); }
-.dashboard-note { display:flex; flex-direction:column; gap:5px; padding:16px 20px; border-left:3px solid var(--text); background:var(--nav); }
+.admin-card-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+.admin-card { display:flex; flex-direction:column; align-items:flex-start; gap:10px; min-height:145px; padding:22px; border:1px solid var(--line); border-radius:10px; background:var(--card); color:var(--text); text-decoration:none; transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease; }
+.admin-card:hover { border-color:var(--accent); box-shadow:0 8px 24px #0002; transform:translateY(-2px); opacity:1; }
+.admin-card:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+.admin-card strong { color:var(--text); font-size:1.15rem; }
+.admin-card span:last-child { color:var(--muted); font-size:.9rem; line-height:1.5; }
+.admin-card-number { display:grid; place-items:center; min-width:30px; min-height:30px; padding:0 7px; border:1px solid var(--line); border-radius:999px; color:var(--muted); font-size:.72rem; letter-spacing:.06em; }
+.admin-card-grid-small { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.dashboard-note { display:flex; flex-direction:column; gap:5px; padding:16px 20px; border-left:3px solid var(--accent); background:var(--nav); }
 .dashboard-note span { color:var(--muted); font-size:.9rem; }
 .dashboard-logout { align-self:flex-start; }
-
+.admin-page .resume-grid { align-items:stretch; }
+.admin-list-section > h2 { margin:28px 0 16px; }
+.admin-list-section > p { color:var(--muted); }
+.admin-page .resume-card { display:flex; flex-direction:column; gap:12px; padding:22px; }
+.admin-page .resume-card h2,
+.admin-page .resume-card h3,
+.admin-page .resume-card p { margin:0; }
+.admin-page .admin-card-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:auto; }
+.admin-page .admin-card-actions form { margin:0; }
+.admin-page .admin-card-actions .btn { margin:0; }
 .card a:hover { opacity:.6; }
 
 
@@ -987,8 +997,8 @@ body.switching *:not(.theme-circle) {
 
     .dashboard-welcome { flex-direction:column; align-items:flex-start; }
     .admin-card-grid,
-    .admin-card-grid-small { grid-template-columns:1fr; }
-    .dashboard-stats { grid-template-columns:repeat(2,1fr); }
+    .admin-card-grid-small { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .dashboard-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
 
     .about-page,
     .projects-page,
@@ -1056,4 +1066,10 @@ body.switching *:not(.theme-circle) {
 .resume-section > h2 {
     margin-bottom:18px;
     font-size:1.8rem;
+}
+
+@media (max-width:480px) {
+    .admin-card-grid,
+    .admin-card-grid-small,
+    .dashboard-stats { grid-template-columns:1fr; }
 }

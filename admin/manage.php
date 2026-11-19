@@ -94,7 +94,7 @@ try {
 <!DOCTYPE html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title><?= e($module['title']) ?> | Portfolio Admin</title><link rel="stylesheet" href="../assets/css/style.css"></head>
-<body>
+<body class="admin-page">
 <header class="site-header"><div class="container header-row"><a class="logo" href="../index.php">Kenneth<span>.</span></a><a class="btn header-btn" href="index.php">Back to Dashboard</a></div></header>
 <main><section class="contact-page container">
 <div class="contact-title"><span class="section-label">ADMIN</span><h1><?= e($module['title']) ?></h1><p>Add, edit, and delete database-backed portfolio content.</p></div>
@@ -104,5 +104,26 @@ try {
 <?php foreach ($module['fields'] as $field => $label): ?><label for="<?= e($field) ?>"><?= e($label) ?></label><?php if (in_array($field, ['description'], true)): ?><textarea id="<?= e($field) ?>" name="<?= e($field) ?>" rows="4"><?= e($record[$field] ?? '') ?></textarea><?php else: ?><input id="<?= e($field) ?>" name="<?= e($field) ?>" type="<?= $field === 'date_awarded' ? 'date' : 'text' ?>" value="<?= e($record[$field] ?? '') ?>" maxlength="255"><?php endif; ?><?php endforeach; ?>
 <?php if ($moduleKey === 'projects'): ?><label for="project_image">Upload project image (optional, max 5 MB)</label><input id="project_image" name="project_image" type="file" accept="image/jpeg,image/png,image/gif,image/webp"><?php endif; ?>
 <?= csrf() ?><input type="hidden" name="action" value="save"><?php if ($editId): ?><input type="hidden" name="id" value="<?= (int) $editId ?>"><?php endif; ?><button class="btn" type="submit"><?= $editId ? 'Update item' : 'Add item' ?></button><?php if ($editId): ?><a class="btn btn-outline" href="manage.php?module=<?= e($moduleKey) ?>">Cancel</a><?php endif; ?></form>
-<div class="resume-grid"><h2>Current <?= e($module['title']) ?></h2><?php foreach ($items as $item): ?><article class="resume-card card"><h3><?= e($item['title'] ?? $item['name'] ?? '') ?></h3><p><?= e($item['description'] ?? $item['category'] ?? $item['label'] ?? '') ?></p><p><a class="btn btn-outline" href="manage.php?module=<?= e($moduleKey) ?>&id=<?= (int) $item['id'] ?>">Edit</a></p><form method="post" action="manage.php?module=<?= e($moduleKey) ?>" onsubmit="return confirm('Delete this item?');"><input type="hidden" name="action" value="delete"><input type="hidden" name="id" value="<?= (int) $item['id'] ?>"><?= csrf() ?><button class="btn" type="submit">Delete</button></form></article><?php endforeach; ?></div>
+<section class="admin-list-section">
+<h2>Current <?= e($module['title']) ?></h2>
+<?php if (!$items): ?>
+<p>No items yet. Use the form above to add the first one.</p>
+<?php else: ?>
+<div class="resume-grid">
+<?php foreach ($items as $item): ?>
+<article class="resume-card card">
+<h3><?= e($item['title'] ?? $item['name'] ?? '') ?></h3>
+<p><?= e($item['description'] ?? $item['category'] ?? $item['label'] ?? '') ?></p>
+<div class="admin-card-actions">
+<a class="btn btn-outline" href="manage.php?module=<?= e($moduleKey) ?>&id=<?= (int) $item['id'] ?>">Edit</a>
+<form method="post" action="manage.php?module=<?= e($moduleKey) ?>" onsubmit="return confirm('Delete this item?');">
+<input type="hidden" name="action" value="delete"><input type="hidden" name="id" value="<?= (int) $item['id'] ?>">
+<?= csrf() ?><button class="btn" type="submit">Delete</button>
+</form>
+</div>
+</article>
+<?php endforeach; ?>
+</div>
+<?php endif; ?>
+</section>
 </section></main><footer class="site-footer"><p>&copy; <?= e(date('Y')) ?> Kenneth Tejoc · Portfolio Admin</p></footer></body></html>
