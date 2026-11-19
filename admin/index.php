@@ -85,11 +85,23 @@ try {
             if (!preg_match('/^[A-Za-z0-9_.-]{3,30}$/', $username) || !is_string($password)) {
                 $message = 'Invalid username or password.';
             } else {
+                $ipAddress = $_SERVER['REMOTE_ADDR'] ?? '';
+                if (!is_string($ipAddress) || filter_var($ipAddress, FILTER_VALIDATE_IP) === false) {
+                    $ipAddress = '';
+                }
+                $recentAttempts = $pdo->prepare('SELECT COUNT(*) FROM login_attempts WHERE (username = ? OR ip_address = ?) AND success = 0 AND attempted_at > DATE_SUB(NOW(), INTERVAL 15 MINUTE)');
+                $recentAttempts->execute([$username, $ipAddress]);
+                if ((int) $recentAttempts->fetchColumn() >= 5) {
+                    $message = 'Too many sign-in attempts. Please try again in 15 minutes.';
+                    $admin = false;
+                } else {
                 $findAdmin = $pdo->prepare('SELECT id, username, password_hash, display_name FROM admins WHERE username = ? LIMIT 1');
                 $findAdmin->execute([$username]);
                 $admin = $findAdmin->fetch();
 
                 if ($admin && password_verify($password, $admin['password_hash'])) {
+                    $recordAttempt = $pdo->prepare('INSERT INTO login_attempts (username, ip_address, success, attempted_at) VALUES (?, ?, 1, NOW())');
+                    $recordAttempt->execute([$username, $ipAddress]);
                     $updateLogin = $pdo->prepare('UPDATE admins SET last_login = NOW() WHERE id = ?');
                     $updateLogin->execute([$admin['id']]);
 
@@ -100,7 +112,10 @@ try {
                     exit;
                 }
 
+                $recordAttempt = $pdo->prepare('INSERT INTO login_attempts (username, ip_address, success, attempted_at) VALUES (?, ?, 0, NOW())');
+                $recordAttempt->execute([$username, $ipAddress]);
                 $message = 'Invalid username or password.';
+                }
             }
         }
     }

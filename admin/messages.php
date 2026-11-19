@@ -38,20 +38,28 @@ try {
         $submittedToken = $_POST['csrf'] ?? '';
         $sessionToken = $_SESSION['csrf'] ?? '';
         $messageId = filter_var($_POST['message_id'] ?? null, FILTER_VALIDATE_INT);
+        $action = $_POST['action'] ?? '';
 
         if (!is_string($submittedToken) || !is_string($sessionToken) || $sessionToken === '' || !hash_equals($sessionToken, $submittedToken)) {
             $message = 'The form could not be verified. Please try again.';
         } elseif ($messageId === false || $messageId < 1) {
             $message = 'The selected message could not be found.';
+        } elseif (!in_array($action, ['read', 'unread', 'delete'], true)) {
+            $message = 'The requested message action is invalid.';
         } else {
-            $markRead = $pdo->prepare('UPDATE messages SET is_read = 1 WHERE id = ?');
-            $markRead->execute([$messageId]);
-
-            if ($markRead->rowCount() > 0) {
-                $message = 'Message marked as read.';
+            if ($action === 'delete') {
+                $statement = $pdo->prepare('DELETE FROM messages WHERE id = ?');
+                $successText = 'Message deleted.';
+            } else {
+                $statement = $pdo->prepare('UPDATE messages SET is_read = ? WHERE id = ?');
+                $successText = $action === 'read' ? 'Message marked as read.' : 'Message marked as unread.';
+            }
+            $action === 'delete' ? $statement->execute([$messageId]) : $statement->execute([$action === 'read' ? 1 : 0, $messageId]);
+            if ($statement->rowCount() > 0) {
+                $message = $successText;
                 $noticeIsSuccess = true;
             } else {
-                $message = 'The message was already marked as read or no longer exists.';
+                $message = 'The message was already changed or no longer exists.';
             }
         }
     }
@@ -106,13 +114,18 @@ try {
                                 <p><?= e($item['email']) ?></p>
                             <?php endif; ?>
                             <p><?= nl2br(e($item['message'])) ?></p>
-                            <?php if ((int) $item['is_read'] !== 1): ?>
-                                <form method="post" action="messages.php">
-                                    <input type="hidden" name="message_id" value="<?= (int) $item['id'] ?>">
-                                    <?= csrf() ?>
-                                    <button class="btn btn-outline" type="submit">Mark as Read</button>
-                                </form>
-                            <?php endif; ?>
+                            <form method="post" action="messages.php" style="display:inline-block">
+                                <input type="hidden" name="message_id" value="<?= (int) $item['id'] ?>">
+                                <input type="hidden" name="action" value="<?= (int) $item['is_read'] === 1 ? 'unread' : 'read' ?>">
+                                <?= csrf() ?>
+                                <button class="btn btn-outline" type="submit"><?= (int) $item['is_read'] === 1 ? 'Mark as Unread' : 'Mark as Read' ?></button>
+                            </form>
+                            <form method="post" action="messages.php" style="display:inline-block" onsubmit="return confirm('Delete this message?');">
+                                <input type="hidden" name="message_id" value="<?= (int) $item['id'] ?>">
+                                <input type="hidden" name="action" value="delete">
+                                <?= csrf() ?>
+                                <button class="btn" type="submit">Delete</button>
+                            </form>
                         </article>
                     <?php endforeach; ?>
                 </div>
